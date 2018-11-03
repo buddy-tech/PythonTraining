@@ -2,10 +2,10 @@
 
 import re
 
-file = open("redata.txt", "r")
 patt = "(\w+)@"
 
-for data in file.readlines():
-    url = re.split("::", data)[1]
-    loginName = re.match(patt, url).group(1)
-    print("Login as:", loginName)
+with open("redata.txt", "r") as file:
+    for data in file.readlines():
+        url = re.split("::", data)[1]
+        loginName = re.match(patt, url).group(1)
+        print("Login as:", loginName)
