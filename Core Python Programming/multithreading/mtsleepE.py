@@ -1,22 +1,22 @@
 #!/usr/bin/env python3
 
-import threading
+from myThread import MyThread
 from time import sleep, ctime
 
-loops = [3, 7, 10]
+loops = [2, 4, 7]
 
 def loop(nloop, nsec):
-    print("Start loop", nloop, "at:", ctime())
-    sleep(nsec)
-    print("Loop", nloop, "done at:", ctime())
+    """模仿单个线程"""
+
+    sleep(nsec)  # 模仿线程运行
 
 def main():
-    print("Starting at:", ctime())
+    print("Starting at:", ctime()) # 主线程运行
     threads = []
     nloops = range(len(loops))
-
+    
     for i in nloops:
-        t = threading.Thread(target=loop, args=(i, loops[i]))
+        t = MyThread(loop, (i, loops[i]), loop.__name__)
         threads.append(t)
 
     for i in nloops:
@@ -27,6 +27,5 @@ def main():
 
     print("All done at:", ctime())
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
-
