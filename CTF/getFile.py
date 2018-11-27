@@ -4,7 +4,7 @@ import requests
 from html.parser import HTMLParser
 import codecs
 
-fileName = ['say','config','passencode','index','so','antiinject','antixss']
+fileName = ['xlcteam']
 
 hparse = HTMLParser()
 for i in fileName:

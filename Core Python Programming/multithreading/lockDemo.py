@@ -1,4 +1,4 @@
-#!python3
+#!/usr/bin/env python3
 
 from threading import Thread, Lock, currentThread
 from time import sleep, ctime

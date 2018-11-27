@@ -1,12 +1,13 @@
-#!python3
+#!/usr/bin/env python3
 
 """多线程实现图书排名示例"""
 from atexit import register
 from re import compile
 from threading import Thread
+from concurrent.futures import ThreadPoolExecutor
 from time import ctime
 from urllib.request import urlopen as uopen
-import socket
+from socket import setdefaulttimeout
 
 REGEX = compile(b"#([\d,]+) in Books")  # 编译一个bytes字符串
 AMZN = "http://amazon.com/dp/"
@@ -17,15 +18,16 @@ ISBNs = {
 }
 
 def getRanking(isbn):
-    socket.setdefaulttimeout(10)  # 设置socket超时    
+    setdefaulttimeout(10)  # 设置socket超时    
 
-    page = uopen("%s%s" % (AMZN, isbn))
+    # print(f"{AMZN}{isbn}")
+    page = uopen(f"{AMZN}{isbn}")
     data = page.read()
     page.close()
     return str(REGEX.findall(data)[0], "utf-8")  # 转Unicode字符串
 
 def _showRanking(isbn):
-    print("- %r ranked %s" % (ISBNs[isbn], getRanking(isbn)))
+    print(f"- {ISBNs[isbn]} ranked {getRanking(isbn)}")
 
 def _main():
     print("At", ctime(), "on Amazon...")
