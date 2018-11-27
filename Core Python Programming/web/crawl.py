@@ -61,10 +61,11 @@ class Retriever:
 
         with open(self.file, 'r') as f:
             data = f.read()
-            URLs = []
             
-            for link in BeautifulSoup(data, "html.parser").find_all('a'):
-                URLs.append(link.get('href'))
+            # for link in BeautifulSoup(data, "html.parser").find_all('a'):
+            #     URLs.append(link.get("href"))
+
+            URLs = [x.get("href") for x in BeautifulSoup(data, "html.parser").find_all('a')]
 
             return URLs
 
