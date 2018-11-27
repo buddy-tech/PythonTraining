@@ -61,13 +61,8 @@ class Retriever:
 
         with open(self.file, 'r') as f:
             data = f.read()
-
-            # StringIO对象吸收标准输出，类似于/dev/null
-            # parser = MyHTMLParser(AbstractFormatter(DumbWriter(StringIO)))
-            # parser = MyHTMLParser()
-            # parser.feed(data)
-            # parser.close()
             URLs = []
+            
             for link in BeautifulSoup(data, "html.parser").find_all('a'):
                 URLs.append(link.get('href'))
 
