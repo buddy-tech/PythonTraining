@@ -2,13 +2,13 @@
 
 from socket import *
 
-#  HOST = "localhost"
-HOST = "::1"
+HOST = "localhost"
+HOST_V6 = "::1"
 PORT = 20000
 BUFSIZE = 1024
 ADDR = (HOST, PORT)
 
-tcpClientSocket = socket(AF_INET6, SOCK_STREAM)
+tcpClientSocket = socket(AF_INET, SOCK_STREAM)
 tcpClientSocket.connect(ADDR)
 
 while True:
