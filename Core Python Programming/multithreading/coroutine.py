@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 
-'''Python协程练习'''
+"""Python协程练习"""
 
 import random
 import time
 import asyncio
 import pdb
+
 
 # yield
 def fib(n):
@@ -16,8 +17,12 @@ def fib(n):
         yield b
         a, b = b, a + b
         index += 1
+
+
+print('-' * 10 + 'test yield fib' + '-' * 10)
 for fib_res in fib(20):
     print(fib_res)
+
 
 # pdb.set_trace()
 # yield/send
@@ -31,7 +36,9 @@ def stupid_fib(n):
         time.sleep(sleep_cnt)
         a, b = b, a + b
         index += 1
-print('-'*10 + 'test yield send' + '-'*10)
+
+
+print('-' * 10 + 'test yield send' + '-' * 10)
 N = 20
 sfib = stupid_fib(N)
 fib_res = next(sfib)
@@ -42,15 +49,19 @@ while True:
     except StopIteration:
         break
 
+
 # pdb.set_trace()
 # yield from
 def copy_fib(n):
     print('I am copy from fib')
     yield from fib(n)  # 迭代完fib生成器才会到下一句
     print('Copy end')
-print('-'*10 + 'test yield from' + '-'*10)
+
+
+print('-' * 10 + 'test yield from' + '-' * 10)
 for fib_res in copy_fib(20):
     print(fib_res)
+
 
 # pdb.set_trace()
 # yield from/send
@@ -58,7 +69,9 @@ def copy_stupid_fib(n):
     print('I am copy from stupid fib')
     yield from stupid_fib(n)
     print('Copy end')
-print('-'*10 + 'test yield from and send' + '-'*10)
+
+
+print('-' * 10 + 'test yield from and send' + '-' * 10)
 N = 20
 csfib = copy_stupid_fib(N)
 fib_res = next(csfib)
@@ -70,6 +83,8 @@ while True:
         break
 
 pdb.set_trace()
+
+
 # asyncio
 @asyncio.coroutine
 def asy_smart_fib(n):
@@ -82,6 +97,7 @@ def asy_smart_fib(n):
         print('Smart one think {0} secs to get {1}'.format(sleep_secs, b))
         a, b = b, a + b
         index += 1
+
 
 @asyncio.coroutine
 def asy_stupid_fib(n):
@@ -96,6 +112,7 @@ def asy_stupid_fib(n):
         a, b = b, a + b
         index += 1
 
+
 def asy_loop():
     # 获取事件循环
     loop = asyncio.get_event_loop()
@@ -107,5 +124,6 @@ def asy_loop():
     loop.run_until_complete(asyncio.wait(tasks))
     print('All fib finished.')
     loop.close()
+
 
 asy_loop()
